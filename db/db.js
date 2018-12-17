@@ -1,10 +1,12 @@
+const bcrypt = require('bcrypt');
+
 module.exports = {
     users: [
         {
-            firstname: "Shaun",
-            lastname: "Pamintuan",
-            email: "sp@gmail.com",
-            password: "password"
+            firstname: "Test",
+            lastname: "User",
+            email: "test@gmail.com",
+            password: bcrypt.hashSync('password', 14)
         }
     ]
 }

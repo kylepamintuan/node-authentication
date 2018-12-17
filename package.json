@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/kylepamintuan/node-authentication#readme",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "express": "^4.16.4"
   }
