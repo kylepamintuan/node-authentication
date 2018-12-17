@@ -1,0 +1,24 @@
+{
+  "name": "node-authentication",
+  "version": "1.0.0",
+  "description": "A simple node app for registering and authenticating a user.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kylepamintuan/node-authentication.git"
+  },
+  "author": "Kyle Pamintuan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kylepamintuan/node-authentication/issues"
+  },
+  "homepage": "https://github.com/kylepamintuan/node-authentication#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
