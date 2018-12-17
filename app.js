@@ -5,9 +5,16 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const db = require('./db/db.js');
 const bcrypt = require('bcrypt');
+const session = require('client-sessions');
+const sessionSecret = require('./sessionSecret.js');
 
 app.use(bodyParser.urlencoded({
     extended: false
+}));
+app.use(session({
+    cookieName: 'session',
+    secret: sessionSecret.secret,
+    duration: 30 * 60 * 1000 // 30 mins
 }));
 
 app.post("/register", (req, res) => {
@@ -24,6 +31,7 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+    const sessionExists = req.session.email;
     const {email, password} = req.body;
     const output = {
         success: true,
@@ -31,10 +39,18 @@ app.post("/login", (req, res) => {
         message: "Invalid email and/or password."
     };
 
-    for(let i in db.users){
-        if(db.users[i].email === email && bcrypt.compareSync(password, db.users[i].password)){
-            output.loggedIn = true;
-            output.message = "Successful login."
+    if(sessionExists && req.session.email === email){
+        output.loggedIn = true,
+        output.message = "User is already logged in."
+    }
+    else{
+        for(let i in db.users){
+            if(db.users[i].email === email && bcrypt.compareSync(password, db.users[i].password)){
+                output.loggedIn = true;
+                output.message = "Successful login."
+    
+                req.session.email = email;
+            }
         }
     }
     return res.status(401).send(output);
